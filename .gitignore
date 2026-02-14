@@ -12,6 +12,7 @@ Desktop.ini
 
 # === Android ===
 *.apk
+!Software/*.apk
 *.ap_
 *.aab
 *.dex
