@@ -22,20 +22,18 @@ A lightweight Android performance monitor with a desktop activator for advanced 
 
 #### Step 1: Install the Android App
 
-1. Download **iKunMonitor.apk** from the [Software](./Software) directory (or from the [Releases](https://github.com/aceyan-git/iKunMonitor/releases) page)
+1. Download **iKunMonitor.apk** from the [Software](./Software) directory
 2. Install the APK on your Android device
 3. **Grant overlay permission** — The app will prompt you to enable "Display over other apps" on first launch. This is required for the floating monitor window
 
 #### Step 2: Download the Desktop Activator (Optional — for ADB metrics)
 
-If you need advanced ADB-based metrics such as real-time FPS, download the **iKunMonitor Activator** for your platform:
+If you need advanced ADB-based metrics such as real-time FPS, download the **iKunMonitor Activator** for your platform from the [Software](./Software) directory:
 
 | Platform | Download |
 |----------|----------|
-| macOS    | `iKunMonitorActivator-Mac.zip` |
-| Windows  | `iKunMonitorActivator-Win.zip` |
-
-> Download from [Releases](https://github.com/aceyan-git/iKunMonitor/releases) or [Actions Artifacts](https://github.com/aceyan-git/iKunMonitor/actions)
+| macOS    | [`iKunMonitorActivatorMac.zip`](./Software/iKunMonitorActivatorMac.zip) |
+| Windows  | [`iKunMonitorActivatorWin.zip`](./Software/iKunMonitorActivatorWin.zip) |
 
 ##### macOS: Trust the App
 
@@ -67,12 +65,17 @@ After this one-time setup, the app will open normally in the future.
 
 ### Demo
 
-> Video tutorials coming soon
+#### 📱 Mobile App Demo
 
-| Demo | Description |
-|------|-------------|
-| 📱 Mobile | How to use the on-device floating monitor |
-| 💻 Desktop | How to use the Activator to enable ADB metrics |
+How to use the on-device floating performance monitor:
+
+https://github.com/aceyan-git/iKunMonitor/raw/main/assets/demo_mobile.mp4
+
+#### 💻 Desktop Activator Demo
+
+How to use the Activator to enable ADB-based metrics:
+
+https://github.com/aceyan-git/iKunMonitor/raw/main/assets/demo_activator.mp4
 
 ### Project Structure
 
@@ -114,20 +117,18 @@ All feedback, bug reports, and suggestions are appreciated. Let's make performan
 
 #### 第一步：安装 Android 应用
 
-1. 从 [Software](./Software) 目录（或 [Releases](https://github.com/aceyan-git/iKunMonitor/releases) 页面）下载 **iKunMonitor.apk**
+1. 从 [Software](./Software) 目录下载 **iKunMonitor.apk**
 2. 在 Android 设备上安装 APK
 3. **授权悬浮窗权限** — 首次启动时，应用会引导你开启「显示在其他应用上层」权限，这是悬浮窗监控的必要条件
 
 #### 第二步：下载桌面端激活器（可选 — 用于 ADB 指标）
 
-如需获取实时 FPS 等 ADB 级别的高级指标，请根据平台下载 **iKunMonitor Activator**：
+如需获取实时 FPS 等 ADB 级别的高级指标，请根据平台从 [Software](./Software) 目录下载 **iKunMonitor Activator**：
 
 | 平台    | 下载文件 |
 |---------|----------|
-| macOS   | `iKunMonitorActivator-Mac.zip` |
-| Windows | `iKunMonitorActivator-Win.zip` |
-
-> 下载地址：[Releases](https://github.com/aceyan-git/iKunMonitor/releases) 或 [Actions Artifacts](https://github.com/aceyan-git/iKunMonitor/actions)
+| macOS   | [`iKunMonitorActivatorMac.zip`](./Software/iKunMonitorActivatorMac.zip) |
+| Windows | [`iKunMonitorActivatorWin.zip`](./Software/iKunMonitorActivatorWin.zip) |
 
 ##### macOS：信任应用
 
@@ -159,12 +160,17 @@ All feedback, bug reports, and suggestions are appreciated. Let's make performan
 
 ### 演示
 
-> 视频教程即将上线
+#### 📱 手机端演示
 
-| 演示 | 说明 |
-|------|------|
-| 📱 手机端 | 设备端悬浮窗监控的使用方法 |
-| 💻 电脑端 | 桌面激活器的使用方法 |
+设备端悬浮窗性能监控的使用方法：
+
+https://github.com/aceyan-git/iKunMonitor/raw/main/assets/demo_mobile.mp4
+
+#### 💻 电脑端演示
+
+桌面激活器的使用方法：
+
+https://github.com/aceyan-git/iKunMonitor/raw/main/assets/demo_activator.mp4
 
 ### 项目结构
 
