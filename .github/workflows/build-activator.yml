@@ -1,0 +1,151 @@
+name: Build iKunMonitor Activator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'iKunMonitorActivator/**'
+      - 'adb/**'
+      - '.github/workflows/build-activator.yml'
+  workflow_dispatch:
+
+jobs:
+  # ──────────────────────────────────────────────
+  #  macOS build (universal: arm64 + x86_64)
+  # ──────────────────────────────────────────────
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Prepare adb for macOS
+        run: |
+          # Copy mac adb into activator resources (arm64 and x86_64 share the same binary on GitHub Actions)
+          MAC_ADB="adb/mac/platform-tools/adb"
+          if [ -f "$MAC_ADB" ]; then
+            cp "$MAC_ADB" iKunMonitorActivator/resources/platform-tools/darwin_arm64/adb
+            cp "$MAC_ADB" iKunMonitorActivator/resources/platform-tools/darwin_x86_64/adb
+            chmod +x iKunMonitorActivator/resources/platform-tools/darwin_arm64/adb
+            chmod +x iKunMonitorActivator/resources/platform-tools/darwin_x86_64/adb
+          fi
+
+      - name: Build with PyInstaller
+        working-directory: iKunMonitorActivator
+        run: |
+          pyinstaller \
+            --name "iKunMonitorActivator" \
+            --windowed \
+            --noconfirm \
+            --add-data "resources:resources" \
+            --add-data "desktop_sampler.py:." \
+            --hidden-import tkinter \
+            main.py
+
+      - name: Create zip
+        working-directory: iKunMonitorActivator/dist
+        run: |
+          zip -r ../../iKunMonitorActivatorMac.zip iKunMonitorActivator.app || \
+          zip -r ../../iKunMonitorActivatorMac.zip iKunMonitorActivator/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: iKunMonitorActivatorMac
+          path: iKunMonitorActivatorMac.zip
+
+  # ──────────────────────────────────────────────
+  #  Windows build
+  # ──────────────────────────────────────────────
+  build-win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Prepare adb for Windows
+        shell: pwsh
+        run: |
+          # Ensure adb.exe and DLLs are present from repo (adb/win/) as backup
+          $winDir = "iKunMonitorActivator/resources/platform-tools/platform-Win"
+          $repoWin = "adb/win/platform-tools"
+          if (-not (Test-Path "$winDir/adb.exe") -and (Test-Path "$repoWin/adb.exe")) {
+            Copy-Item "$repoWin/adb.exe" "$winDir/adb.exe"
+            Copy-Item "$repoWin/AdbWinApi.dll" "$winDir/AdbWinApi.dll" -ErrorAction SilentlyContinue
+            Copy-Item "$repoWin/AdbWinUsbApi.dll" "$winDir/AdbWinUsbApi.dll" -ErrorAction SilentlyContinue
+          }
+
+      - name: Build with PyInstaller
+        working-directory: iKunMonitorActivator
+        shell: pwsh
+        run: |
+          pyinstaller `
+            --name "iKunMonitorActivator" `
+            --windowed `
+            --noconfirm `
+            --add-data "resources;resources" `
+            --add-data "desktop_sampler.py;." `
+            --hidden-import tkinter `
+            main.py
+
+      - name: Create zip
+        working-directory: iKunMonitorActivator/dist
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "iKunMonitorActivator" -DestinationPath "../../iKunMonitorActivatorWin.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: iKunMonitorActivatorWin
+          path: iKunMonitorActivatorWin.zip
+
+  # ──────────────────────────────────────────────
+  #  Copy artifacts to Software/ (optional release)
+  # ──────────────────────────────────────────────
+  release:
+    needs: [build-mac, build-win]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: iKunMonitorActivatorMac
+          path: ./artifacts/
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: iKunMonitorActivatorWin
+          path: ./artifacts/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: activator-${{ github.run_number }}
+          name: "iKunMonitor Activator Build #${{ github.run_number }}"
+          body: |
+            Auto-built iKunMonitor Activator packages.
+
+            - **iKunMonitorActivatorMac.zip** — macOS (contains adb)
+            - **iKunMonitorActivatorWin.zip** — Windows (contains adb.exe)
+
+            Download and unzip to use. No Python installation required.
+          files: |
+            artifacts/iKunMonitorActivatorMac.zip
+            artifacts/iKunMonitorActivatorWin.zip

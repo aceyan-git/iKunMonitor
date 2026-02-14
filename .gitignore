@@ -1,0 +1,47 @@
+# === OS ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# === IDE ===
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# === Android ===
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+out/
+.gradle/
+build/
+local.properties
+*.jks
+*.keystore
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+*.spec
+
+# === Logs ===
+*.log
+
+# === CodeBuddy ===
+.codebuddy/
+
+# === Other ===
+PerfMon-Plus/
+PerfMonitor/
+iKunMonitorActivatorOld/
+vibe-coding-cn/
+.gitattributes

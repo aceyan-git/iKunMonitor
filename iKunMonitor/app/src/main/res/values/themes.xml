@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Compose Material3 does not provide XML themes. Use MaterialComponents as a base theme. -->
+    <style name="Theme.iKunMonitor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Keep default; UI colors are controlled by Compose in v1. -->
+    </style>
+</resources>
