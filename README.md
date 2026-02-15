@@ -8,7 +8,7 @@
 
 ## English
 
-A lightweight Android performance monitor with a desktop activator for advanced ADB-based metrics (FPS, CPU, Memory, Network, etc.).
+A lightweight, free and open-source Android performance monitor. Simple to use out of the box, with an optional desktop activator for advanced ADB-based metrics (FPS, etc.).
 
 ### Features
 
@@ -103,7 +103,7 @@ All feedback, bug reports, and suggestions are appreciated. Let's make performan
 
 ## 中文
 
-一款轻量级 Android 性能监控工具，配合桌面端激活器可获取 ADB 级别的高级指标（FPS、CPU、内存、网络等）。
+一款轻量级 Android 性能监控工具，免费开源，简单易用，也可以配合桌面端激活器获取 ADB 级别的高级指标（FPS 等）。
 
 ### 功能特性
 
